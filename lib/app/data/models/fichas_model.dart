@@ -2,6 +2,7 @@
 //
 //     final fichasModel = fichasModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 FichasModel fichasModelFromJson(String str) => FichasModel.fromJson(json.decode(str));
@@ -42,16 +43,20 @@ class Ficha {
     required this.estado,
     required this.ubicacion,
     required this.observaciones,
+    required this.id,
+    required this.name,
   });
 
   int idIncid;
   int idTipoIncid;
-  String marca;
-  String modelo;
-  String serie;
-  String estado;
-  String ubicacion;
-  String observaciones;
+  dynamic marca;
+  dynamic modelo;
+  dynamic serie;
+  dynamic estado;
+  dynamic ubicacion;
+  dynamic observaciones;
+  int id;
+  String name;
 
   factory Ficha.fromJson(Map<String, dynamic> json) => Ficha(
     idIncid: json["id_incid"],
@@ -62,6 +67,8 @@ class Ficha {
     estado: json["estado"].toString(),
     ubicacion: json["ubicacion"].toString(),
     observaciones: json["observaciones"].toString(),
+    id: json["id"],
+    name: json["name"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -73,5 +80,7 @@ class Ficha {
     "estado": estado,
     "ubicacion": ubicacion,
     "observaciones": observaciones,
+    "id": id,
+    "name": name,
   };
 }

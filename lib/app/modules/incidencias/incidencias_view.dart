@@ -9,7 +9,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final bool web = size.width > 1000;
+    final bool web = size.width > 800;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -175,9 +175,9 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                             ))),
                                         DataCell(PopupMenuButton<String>(
                                           itemBuilder: (_) => [
-                                            const PopupMenuItem(
+                                           /* const PopupMenuItem(
                                                 child: Text('Eliminar'),
-                                                value: 'delete'),
+                                                value: 'delete'),*/
                                             const PopupMenuItem(
                                                 child: Text('Detalles'),
                                                 value: 'detail'),
@@ -217,9 +217,9 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                             const PopupMenuItem(
                                                 child: Text('PDF'),
                                                 value: 'pdf'),
-                                            const PopupMenuItem(
+                                         /*   const PopupMenuItem(
                                                 child: Text('Eliminar'),
-                                                value: 'delete'),
+                                                value: 'delete'),*/
                                             const PopupMenuItem(
                                                 child: Text('Detalles'),
                                                 value: 'detail'),

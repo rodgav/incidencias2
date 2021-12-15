@@ -52,11 +52,11 @@ class AppPages {
                           name: _Paths.incidenciasDetails,
                           page: () => const IncidenciasDetailPage(),
                           binding: IncidenciasDetailBinding()),
-                      GetPage(
-                          name: _Paths.incidenciasPDF,
-                          page: () => const IncidenciasPdfPage(),
-                          binding: IncidenciasPdfBinding()),
                     ]),
+                GetPage(
+                    name: _Paths.incidenciasPDF,
+                    page: () => const IncidenciasPdfPage(),
+                    binding: IncidenciasPdfBinding()),
                 GetPage(
                     name: _Paths.newIncidencia,
                     page: () => const NewIncidenciaPage(),

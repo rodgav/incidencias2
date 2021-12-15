@@ -34,7 +34,7 @@ class HomePage extends GetView<HomeLogic> {
               style: const TextStyle(color: Colors.black),
             ),
           ),
-          drawer: web ? const SizedBox() : const DrawerHome(),
+          drawer: web ? null : const DrawerHome(),
           body: Row(
             children: [
               web ? const DrawerHome() : const SizedBox(),
