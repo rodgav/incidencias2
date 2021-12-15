@@ -216,6 +216,7 @@ class HomeLogic extends GetxController {
       if (_newPassCtrl.text == _newPass1Ctrl.text) {
         _dialogLoading();
         final incidence = await _dataRepository.updaPassw(map: {
+          'accion': 'updaPassw',
           'idUser': AuthService.to.userId.toString(),
           'user': AuthService.to.user.toString(),
           'oldPassword': _encrypt.encrypt(_oldPassCtrl.text),
@@ -223,10 +224,14 @@ class HomeLogic extends GetxController {
         });
         Get.back();
         if (incidence != null) {
-          _oldPassCtrl.clear();
-          _newPassCtrl.clear();
-          _newPass1Ctrl.clear();
-          Get.back();
+          if(!incidence.error){
+            _oldPassCtrl.clear();
+            _newPassCtrl.clear();
+            _newPass1Ctrl.clear();
+            Get.back();
+          }else{
+            _snackBar(Colors.red, 'ERROR', incidence.mensaje);
+          }
         } else {
           _snackBar(Colors.red, 'ERROR', 'Contraseña actual incorrecta');
         }

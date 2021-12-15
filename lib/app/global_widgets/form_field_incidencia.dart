@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class FormFieldIncidencia extends StatelessWidget {
+  final TextEditingController controller;
+  final String? Function(String?) validator;
   final String label;
   final String hintText;
   final int maxLines;
 
-  const FormFieldIncidencia(
-      {Key? key,
-      required this.label,
-      required this.hintText,
-      required this.maxLines})
+  const FormFieldIncidencia({Key? key,
+    required this.controller,
+    required this.validator,
+    required this.label,
+    required this.hintText,
+    required this.maxLines})
       : super(key: key);
 
   @override
@@ -17,9 +20,11 @@ class FormFieldIncidencia extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: TextFormField(
+        controller:controller,
+        validator: validator,
         textAlignVertical: TextAlignVertical.top,
         decoration: InputDecoration(
-          alignLabelWithHint: true,
+            alignLabelWithHint: true,
             label: Text(label),
             hintText: hintText,
             filled: true,

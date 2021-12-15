@@ -28,6 +28,7 @@ class LoginLogic extends GetxController {
   void onReady() {
     emailCtrl.text = 'admin@gmail.com';
     passCtrl.text = 'passwordUserAdmin';
+    print(_encrypt.encrypt('passwordUserAdmin'));
     super.onReady();
   }
 

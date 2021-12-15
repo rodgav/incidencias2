@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-IncidencesModel incidencesModelFromJson(String str) => IncidencesModel.fromJson(json.decode(str));
+IncidencesModel incidencesModelFromJson(String str) =>
+    IncidencesModel.fromJson(json.decode(str));
 
-String incidencesModelToJson(IncidencesModel data) => json.encode(data.toJson());
+String incidencesModelToJson(IncidencesModel data) =>
+    json.encode(data.toJson());
 
 class IncidencesModel {
   IncidencesModel({
@@ -19,24 +21,25 @@ class IncidencesModel {
   String mensaje;
   List<Incide> incides;
 
-  factory IncidencesModel.fromJson(Map<String, dynamic> json) => IncidencesModel(
-    error: json["error"],
-    mensaje: json["mensaje"],
-    incides: List<Incide>.from(json["incides"].map((x) => Incide.fromJson(x))),
-  );
+  factory IncidencesModel.fromJson(Map<String, dynamic> json) =>
+      IncidencesModel(
+        error: json["error"],
+        mensaje: json["mensaje"],
+        incides: json["incides"] != null
+            ? List<Incide>.from(json["incides"].map((x) => Incide.fromJson(x)))
+            : [],
+      );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
-    "mensaje": mensaje,
-    "incides": List<dynamic>.from(incides.map((x) => x.toJson())),
-  };
+        "error": error,
+        "mensaje": mensaje,
+        "incides": List<dynamic>.from(incides.map((x) => x.toJson())),
+      };
 }
 
 class Incide {
   Incide({
-    required this.id,
-    required this.idUser,
-    required this.idEstadoIncid,
+    required this.idInci,
     required this.descripcion,
     required this.instEduc,
     required this.codModul,
@@ -52,18 +55,14 @@ class Incide {
     required this.cistTelefono,
     required this.cistDni,
     required this.cistCorreo,
-    required this.idRole,
-    required this.name,
-    required this.lastname,
-    required this.phone,
-    required this.user,
-    required this.password,
-    required this.active,
+    required this.userId,
+    required this.usuario,
+    required this.userPhone,
+    required this.idEstaInci,
+    required this.nameEstaInci,
   });
 
-  int id;
-  int idUser;
-  int idEstadoIncid;
+  int idInci;
   String descripcion;
   String instEduc;
   String codModul;
@@ -72,74 +71,64 @@ class Incide {
   String provincia;
   String region;
   String dirNombApell;
-  int dirTelefono;
-  int dirDni;
+  String dirTelefono;
+  String dirDni;
   String dirCorreo;
   String cistNombApell;
-  int cistTelefono;
-  int cistDni;
+  String cistTelefono;
+  String cistDni;
   String cistCorreo;
-  int idRole;
-  String name;
-  String lastname;
-  int phone;
-  String user;
-  String password;
-  int active;
+  int userId;
+  String usuario;
+  String userPhone;
+  int idEstaInci;
+  String nameEstaInci;
 
   factory Incide.fromJson(Map<String, dynamic> json) => Incide(
-    id: json["id"],
-    idUser: json["id_user"],
-    idEstadoIncid: json["id_estado_incid"],
-    descripcion: json["descripcion"],
-    instEduc: json["inst_educ"],
-    codModul: json["cod_modul"],
-    codLocal: json["cod_local"],
-    distrito: json["distrito"],
-    provincia: json["provincia"],
-    region: json["region"],
-    dirNombApell: json["dir_nomb_apell"],
-    dirTelefono: json["dir_telefono"],
-    dirDni: json["dir_dni"],
-    dirCorreo: json["dir_correo"],
-    cistNombApell: json["cist_nomb_apell"],
-    cistTelefono: json["cist_telefono"],
-    cistDni: json["cist_dni"],
-    cistCorreo: json["cist_correo"],
-    idRole: json["id_role"],
-    name: json["name"],
-    lastname: json["lastname"],
-    phone: json["phone"],
-    user: json["user"],
-    password: json["password"],
-    active: json["active"],
-  );
+        idInci: json["idInci"],
+        descripcion: json["descripcion"].toString(),
+        instEduc: json["inst_educ"].toString(),
+        codModul: json["cod_modul"].toString(),
+        codLocal: json["cod_local"].toString(),
+        distrito: json["distrito"].toString(),
+        provincia: json["provincia"].toString(),
+        region: json["region"].toString(),
+        dirNombApell: json["dir_nomb_apell"].toString(),
+        dirTelefono: json["dir_telefono"].toString(),
+        dirDni: json["dir_dni"].toString(),
+        dirCorreo: json["dir_correo"].toString(),
+        cistNombApell: json["cist_nomb_apell"].toString(),
+        cistTelefono: json["cist_telefono"].toString(),
+        cistDni: json["cist_dni"].toString(),
+        cistCorreo: json["cist_correo"].toString(),
+        userId: json["user_id"],
+        usuario: json["usuario"].toString(),
+        userPhone: json["user_phone"].toString(),
+        idEstaInci: json["id_esta_inci"],
+        nameEstaInci: json["name_esta_inci"].toString(),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "id_user": idUser,
-    "id_estado_incid": idEstadoIncid,
-    "descripcion": descripcion,
-    "inst_educ": instEduc,
-    "cod_modul": codModul,
-    "cod_local": codLocal,
-    "distrito": distrito,
-    "provincia": provincia,
-    "region": region,
-    "dir_nomb_apell": dirNombApell,
-    "dir_telefono": dirTelefono,
-    "dir_dni": dirDni,
-    "dir_correo": dirCorreo,
-    "cist_nomb_apell": cistNombApell,
-    "cist_telefono": cistTelefono,
-    "cist_dni": cistDni,
-    "cist_correo": cistCorreo,
-    "id_role": idRole,
-    "name": name,
-    "lastname": lastname,
-    "phone": phone,
-    "user": user,
-    "password": password,
-    "active": active,
-  };
+        "idInci": idInci,
+        "descripcion": descripcion,
+        "inst_educ": instEduc,
+        "cod_modul": codModul,
+        "cod_local": codLocal,
+        "distrito": distrito,
+        "provincia": provincia,
+        "region": region,
+        "dir_nomb_apell": dirNombApell,
+        "dir_telefono": dirTelefono,
+        "dir_dni": dirDni,
+        "dir_correo": dirCorreo,
+        "cist_nomb_apell": cistNombApell,
+        "cist_telefono": cistTelefono,
+        "cist_dni": cistDni,
+        "cist_correo": cistCorreo,
+        "user_id": userId,
+        "usuario": usuario,
+        "user_phone": userPhone,
+        "id_esta_inci": idEstaInci,
+        "name_esta_inci": nameEstaInci,
+      };
 }

@@ -14,13 +14,10 @@ class UsuariosLogic extends GetxController {
   final TextEditingController _lastNameCtrl = TextEditingController();
   final TextEditingController _phoneCtrl = TextEditingController();
   final TextEditingController _userCtrl = TextEditingController();
-  final scrollController = ScrollController();
   UsersModel? _usersModel;
   RolesModel? _rolesModel;
   Role? _role;
   Role? _roleNew;
-  int _index = 0;
-  final int _limit = 25;
 
   UsersModel? get usersModel => _usersModel;
 
@@ -33,7 +30,6 @@ class UsuariosLogic extends GetxController {
   @override
   void onReady() {
     _getTypeInci();
-    _setupScrollController();
     super.onReady();
   }
 
@@ -43,7 +39,6 @@ class UsuariosLogic extends GetxController {
     _lastNameCtrl.dispose();
     _phoneCtrl.dispose();
     _userCtrl.dispose();
-    scrollController.dispose();
     super.dispose();
   }
 
@@ -53,29 +48,14 @@ class UsuariosLogic extends GetxController {
       _rolesModel!.roles.insert(0, Role(id: 0, name: 'Todos'));
       _role = rolesModel!.roles[0];
       update(['roles']);
-      _getUsers(role!.id, false);
+      _getUsers(role!.id);
     }
-  }
-
-  void _setupScrollController() {
-    scrollController.addListener(() {
-      if (scrollController.offset >=
-          scrollController.position.maxScrollExtent &&
-          !scrollController.position.outOfRange) {
-        _getUsers(role!.id, false);
-      }
-      if (scrollController.offset <=
-          scrollController.position.minScrollExtent &&
-          !scrollController.position.outOfRange) {
-        _getUsers(role!.id, true);
-      }
-    });
   }
 
   void selectRoles(Role data) {
     _role = data;
     update(['roles']);
-    _getUsers(data.id, true);
+    _getUsers(data.id);
   }
 
   void selectRolesNew(Role data) {
@@ -87,7 +67,7 @@ class UsuariosLogic extends GetxController {
     switch (value) {
       case 'edit':
         if (AuthService.to.role == 'admin') {
-          _nameCtrl.text= user.name;
+          _nameCtrl.text = user.name;
           _lastNameCtrl.text = user.lastName;
           _phoneCtrl.text = user.phone;
           _userCtrl.text = user.user;
@@ -115,39 +95,11 @@ class UsuariosLogic extends GetxController {
     );
   }
 
-  void _getUsers(int idRole, bool reload) async {
-    if (reload) {
-      _usersModel = UsersModel(error: false, mensaje: '', total: 0, users: []);
-      _index = 0;
-    }
-    UsersModel oldUsersModel;
-    UsersModel newUsersModel;
-    if (usersModel != null) {
-      oldUsersModel = usersModel!;
-    } else {
-      oldUsersModel =
-          UsersModel(error: false, mensaje: '', total: 0, users: []);
-    }
-    if (oldUsersModel.total >= _index) {
-      final newUser = await _dataRepository.getUsers(map: {
-        'idRole': idRole == 0 ? '' : idRole.toString(),
-        'index': _index.toString(),
-        'limit': _limit.toString()
-      });
-      if (newUser != null) {
-        newUsersModel = newUser;
-      } else {
-        newUsersModel =
-            UsersModel(error: false, mensaje: '', total: 0, users: []);
-      }
-      _index = _index + _limit + 1;
-    } else {
-      newUsersModel =
-          UsersModel(error: false, mensaje: '', total: 0, users: []);
-    }
-    _usersModel = oldUsersModel;
-    _usersModel!.total = newUsersModel.total;
-    _usersModel!.users.addAll(newUsersModel.users);
+  void _getUsers(int idRole) async {
+    _usersModel = await _dataRepository.getUsers(map: {
+      'accion': 'users',
+      'idRole': idRole == 0 ? '' : idRole.toString()
+    });
     update(['users']);
   }
 
@@ -342,7 +294,7 @@ class UsuariosLogic extends GetxController {
                             underline: const SizedBox(),
                             items: rolesModel!.roles
                                 .map((e) => DropdownMenuItem<Role>(
-                                value: e, child: Text(e.name)))
+                                    value: e, child: Text(e.name)))
                                 .toList(),
                             onChanged: (value) => selectRolesNew(value as Role),
                           ),
@@ -372,6 +324,7 @@ class UsuariosLogic extends GetxController {
         if (AuthService.to.userId != null) {
           _dialogLoading();
           final response = await _dataRepository.createUser(map: {
+            'accion': 'createUser',
             'idRole': roleNew!.id.toString(),
             'name': _nameCtrl.text,
             'lastName': _lastNameCtrl.text,
@@ -381,12 +334,16 @@ class UsuariosLogic extends GetxController {
           });
           Get.back();
           if (response != null) {
-            _nameCtrl.clear();
-            _lastNameCtrl.clear();
-            _phoneCtrl.clear();
-            _userCtrl.clear();
-            _getUsers(role!.id, true);
-            Get.back();
+            if (!response.error) {
+              _nameCtrl.clear();
+              _lastNameCtrl.clear();
+              _phoneCtrl.clear();
+              _userCtrl.clear();
+              _getUsers(role!.id);
+              Get.back();
+            } else {
+              _snackBar(Colors.red, 'ERROR', response.mensaje);
+            }
           } else {
             _snackBar(Colors.red, 'ERROR', 'Error al crear usuario');
           }
@@ -421,7 +378,8 @@ class UsuariosLogic extends GetxController {
     if (_formKey.currentState!.validate()) {
       if (roleNew != null) {
         _dialogLoading();
-        final incidence = await _dataRepository.updaUser(map: {
+        final response = await _dataRepository.updaUser(map: {
+          'accion': 'updaUser',
           'idUser': idUser.toString(),
           'idRole': roleNew!.id.toString(),
           'name': _nameCtrl.text,
@@ -431,13 +389,17 @@ class UsuariosLogic extends GetxController {
           'password': _encrypt.encrypt(_phoneCtrl.text),
         });
         Get.back();
-        if (incidence != null) {
-          _nameCtrl.clear();
-          _lastNameCtrl.clear();
-          _phoneCtrl.clear();
-          _userCtrl.clear();
-          _getUsers(role!.id, true);
-          Get.back();
+        if (response != null) {
+          if (!response.error) {
+            _nameCtrl.clear();
+            _lastNameCtrl.clear();
+            _phoneCtrl.clear();
+            _userCtrl.clear();
+            _getUsers(role!.id);
+            Get.back();
+          } else {
+            _snackBar(Colors.red, 'ERROR', response.mensaje);
+          }
         } else {
           _snackBar(Colors.red, 'ERROR', 'Error al actualizar usuario');
         }

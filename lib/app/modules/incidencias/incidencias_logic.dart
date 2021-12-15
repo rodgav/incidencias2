@@ -1,19 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:incidencias2/app/data/models/incides_model.dart';
-import 'package:incidencias2/app/data/models/type_inci_model.dart';
+import 'package:incidencias2/app/data/models/state_inci_model.dart';
 import 'package:incidencias2/app/data/repositorys/db_repository.dart';
 import 'package:incidencias2/app/routes/app_pages.dart';
 
 class IncidenciasLogic extends GetxController {
   final _dataRepository = Get.find<DbRepository>();
-  TypeInciModel? _typeInciModel;
-  TypeInci? _typeInci;
+  StateInciModel? _stateInciModel;
+  StateInci? _stateInci;
   IncidencesModel? _incidencesModel;
 
-  TypeInciModel? get typeInciModel => _typeInciModel;
+  StateInciModel? get stateInciModel => _stateInciModel;
 
-  TypeInci? get typeInci => _typeInci;
+  StateInci? get stateInci => _stateInci;
 
   IncidencesModel? get incidencesModel => _incidencesModel;
 
@@ -29,28 +28,31 @@ class IncidenciasLogic extends GetxController {
   }
 
   void _getTypeInci() async {
-    _typeInciModel = await _dataRepository.typeInci();
-    if (typeInciModel != null) {
-      _typeInciModel!.typeInci.insert(0, TypeInci(id: 0, name: 'Todos'));
-      _typeInci = typeInciModel!.typeInci[0];
-      update(['typeIncis']);
-      _getIncids(typeInci!.id);
+    _stateInciModel = await _dataRepository.stateInci();
+    if (stateInciModel != null) {
+      _stateInciModel!.stateInci.insert(0, StateInci(id: 0, name: 'Todos'));
+      _stateInci = stateInciModel!.stateInci[0];
+      update(['stateInci']);
+      _getIncids(stateInci!.id);
     }
   }
 
-  void _getIncids(int idTypeInci) async {
-    _incidencesModel = await _dataRepository.getIncidences();
+  void _getIncids(int idStateInci) async {
+    _incidencesModel = await _dataRepository.getIncidences(map: {
+      'accion': 'incides',
+      'idStateInci': idStateInci == 0 ? '' : idStateInci.toString()
+    });
     update(['incidences']);
   }
 
-  void selectTypeInci(TypeInci data) {
-    _typeInci = data;
-    update(['typeIncis']);
+  void selectTypeInci(StateInci data) {
+    _stateInci = data;
+    update(['stateInci']);
     _getIncids(data.id);
   }
 
   void toNewIncid() {
-    Get.rootDelegate.toNamed(Routes.newIncidencia);
+    Get.rootDelegate.offNamed(Routes.newIncidencia);
   }
 
   void popupSelect(int id, String value) {

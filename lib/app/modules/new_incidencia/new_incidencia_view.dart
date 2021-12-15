@@ -11,12 +11,12 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final web = size.width > 800;
-    return Scaffold(
-      body: SingleChildScrollView(
+    return  SingleChildScrollView(
         child: Padding(
           padding:
               EdgeInsets.symmetric(vertical: 20, horizontal: web ? 80 : 20),
           child: Form(
+            key: controller.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,8 +38,12 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                const FormFieldIncidencia(
-                    label: 'Descripción', hintText: 'Descripción', maxLines: 5),
+                FormFieldIncidencia(
+                    controller: controller.descripcion,
+                    validator: controller.isNotEmpty,
+                    label: 'Descripción',
+                    hintText: 'Descripción',
+                    maxLines: 5),
                 const SizedBox(height: 20),
                 Text(
                   'Datos de la institución educativa',
@@ -49,34 +53,47 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.nombreIE,
+                    validator: controller.isNotEmpty,
                     label: 'Nombre de la IE',
                     hintText: 'Nombre de la IE',
                     maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.codigoMod,
+                    validator: controller.isNotEmpty,
                     label: 'Código modular',
                     hintText: 'Código modular',
                     maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'Nombre de la IE',
-                    hintText: 'Nombre de la IE',
-                    maxLines: 1),
-                const SizedBox(height: 10),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.codigoLoc,
+                    validator: controller.isNotEmpty,
                     label: 'Código local',
                     hintText: 'Código local',
                     maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'Distrito', hintText: 'Distrito', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.distrito,
+                    validator: controller.isNotEmpty,
+                    label: 'Distrito',
+                    hintText: 'Distrito',
+                    maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'Provincia', hintText: 'Provincia', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.provincia,
+                    validator: controller.isNotEmpty,
+                    label: 'Provincia',
+                    hintText: 'Provincia',
+                    maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'Región', hintText: 'Región', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.region,
+                    validator: controller.isNotEmpty,
+                    label: 'Región',
+                    hintText: 'Región',
+                    maxLines: 1),
                 const SizedBox(height: 20),
                 Text(
                   'Datos del director',
@@ -86,18 +103,30 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.nombreApellDir,
+                    validator: controller.isNotEmpty,
                     label: 'Nombres y apellidos',
                     hintText: 'Nombres y apellidos',
                     maxLines: 2),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'Teléfono', hintText: 'Teléfono', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.telefDir,
+                    validator: controller.isNotEmpty,
+                    label: 'Teléfono',
+                    hintText: 'Teléfono',
+                    maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'DNI', hintText: 'DNI', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.dniDir,
+                    validator: controller.isNotEmpty,
+                    label: 'DNI',
+                    hintText: 'DNI',
+                    maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.correoDir,
+                    validator: controller.isNotEmpty,
                     label: 'Correo electrónico',
                     hintText: 'Correo electrónico',
                     maxLines: 1),
@@ -110,18 +139,30 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.nombreApellCist,
+                    validator: controller.isNotEmpty,
                     label: 'Nombres y apellidos',
                     hintText: 'Nombres y apellidos',
                     maxLines: 2),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'Teléfono', hintText: 'Teléfono', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.telefCist,
+                    validator: controller.isNotEmpty,
+                    label: 'Teléfono',
+                    hintText: 'Teléfono',
+                    maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
-                    label: 'DNI', hintText: 'DNI', maxLines: 1),
+                FormFieldIncidencia(
+                    controller: controller.dniCist,
+                    validator: controller.isNotEmpty,
+                    label: 'DNI',
+                    hintText: 'DNI',
+                    maxLines: 1),
                 const SizedBox(height: 10),
-                const FormFieldIncidencia(
+                FormFieldIncidencia(
+                    controller: controller.correoCist,
+                    validator: controller.isNotEmpty,
                     label: 'Correo electrónico',
                     hintText: 'Correo electrónico',
                     maxLines: 1),
@@ -131,7 +172,7 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
                   width: size.width * 0.15,
                   height: 45,
                   child: ElevatedButton(
-                      onPressed: controller.toNewFicha,
+                      onPressed: controller.saveIncidence,
                       child: const Text(
                         'Crear',
                         style: TextStyle(fontSize: 20),
@@ -141,7 +182,6 @@ class NewIncidenciaPage extends GetView<NewIncidenciaLogic> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

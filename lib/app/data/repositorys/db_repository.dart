@@ -21,7 +21,7 @@ class DbRepository {
   Future<ResponseModel?> createIncidence({required Map<String, String> map}) =>
       _dbProvider.post(map: map);
 
-  Future<IncidencesModel?> getIncidences() => _dbProvider.getIncidences();
+  Future<IncidencesModel?> getIncidences({required Map<String, String> map}) => _dbProvider.getIncidences(map:map);
 
   Future<IncidencesModel?> getIncidId({required int idIncid}) =>
       _dbProvider.getIncidId(idIncid: idIncid);
@@ -33,7 +33,7 @@ class DbRepository {
       _dbProvider.getFichas(idIncid: idIncid);
 
   Future<UsersModel?> getUsers({required Map<String, String> map}) =>
-      _dbProvider.getUsers();
+      _dbProvider.getUsers(map:map);
 
   Future<RolesModel?> roles() => _dbProvider.roles();
 

@@ -108,7 +108,6 @@ class UsuariosPage extends GetView<UsuariosLogic> {
                           ? usersModel != null
                           ? usersModel.users.isNotEmpty
                           ? SingleChildScrollView(
-                        controller: controller.scrollController,
                         physics: const BouncingScrollPhysics(),
                         child: DataTable(
                           columns: const [
@@ -215,7 +214,6 @@ class UsuariosPage extends GetView<UsuariosLogic> {
                           : usersModel != null
                           ? usersModel.users.isNotEmpty
                           ? ListView.builder(
-                        controller: controller.scrollController,
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (_, index) {
                           final user = usersModel.users[index];

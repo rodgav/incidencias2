@@ -52,9 +52,9 @@ class DbProvider {
     }
   }
 
-  Future<IncidencesModel?> getIncidences() async {
+  Future<IncidencesModel?> getIncidences({required Map<String, String> map}) async {
     try {
-      final result = await _dio.get('', queryParameters: {'accion': 'incides'});
+      final result = await _dio.get('', queryParameters: map);
       return IncidencesModel.fromJson(result.data);
     } catch (_) {
       return null;
@@ -81,9 +81,9 @@ class DbProvider {
     }
   }
 
-  Future<UsersModel?> getUsers() async {
+  Future<UsersModel?> getUsers({required Map<String, String> map}) async {
     try {
-      final result = await _dio.get('', queryParameters: {'accion': 'users'});
+      final result = await _dio.get('', queryParameters: map);
       return UsersModel.fromJson(result.data);
     } catch (_) {
       return null;

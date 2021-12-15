@@ -26,7 +26,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
         const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Tipos de incidentes',
+              'Estados de incidentes',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -34,24 +34,24 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
             )),
         const SizedBox(height: 5),
         GetBuilder<IncidenciasLogic>(
-            id: 'typeIncis',
+            id: 'stateInci',
             builder: (_) {
-              final typeInciModel = _.typeInciModel;
-              final typeInci = _.typeInci;
+              final stateInciModel = _.stateInciModel;
+              final stateInci = _.stateInci;
               return SizedBox(
                 height: 40,
-                child: typeInciModel != null
+                child: stateInciModel != null
                     ? ListView.builder(
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (__, index) {
-                          final data = typeInciModel.typeInci[index];
+                          final data = stateInciModel.stateInci[index];
                           return MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: data == typeInci
+                                    color: data == stateInci
                                         ? Colors.blue
                                         : Colors.white,
                                     borderRadius: BorderRadius.circular(20),
@@ -63,7 +63,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(data.name,
                                         style: TextStyle(
-                                            color: data == typeInci
+                                            color: data == stateInci
                                                 ? Colors.white
                                                 : Colors.blue))),
                               ),
@@ -71,7 +71,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                             ),
                           );
                         },
-                        itemCount: typeInciModel.typeInci.length)
+                        itemCount: stateInciModel.stateInci.length)
                     : const Text('Tareas no encontradas'),
               );
             }),
@@ -115,6 +115,13 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                       )),
                                       DataColumn(
                                           label: Text(
+                                        'Institución Educativa',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      )),DataColumn(
+                                          label: Text(
                                         'Usuario',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -124,14 +131,6 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                       DataColumn(
                                           label: Text(
                                         'Descripción',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                      )),
-                                      DataColumn(
-                                          label: Text(
-                                        'Estado',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                         overflow: TextOverflow.ellipsis,
@@ -159,17 +158,16 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                           incidencesModel.incides.indexOf(e);
                                       return DataRow(cells: [
                                         DataCell(Text('$index')),
-                                        DataCell(Text(e.name)),
+                                        DataCell(Text(e.instEduc)),
+                                        DataCell(Text(e.usuario)),
                                         DataCell(Text(e.descripcion,maxLines: 2,)),
-                                        DataCell(
-                                            Text(e.idEstadoIncid.toString())),
                                         DataCell(TextButton(
                                             style: TextButton.styleFrom(
                                                 backgroundColor: Colors.red,
                                                 textStyle: const TextStyle(
                                                     color: Colors.white)),
                                             onPressed: () => controller
-                                                .popupSelect(e.id, 'pdf'),
+                                                .popupSelect(e.idInci, 'pdf'),
                                             child: const Text(
                                               'PDF',
                                               style: TextStyle(
@@ -185,7 +183,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                                 value: 'detail'),
                                           ],
                                           onSelected: (value) => controller
-                                              .popupSelect(e.id, value),
+                                              .popupSelect(e.idInci, value),
                                         )),
                                       ]);
                                     }).toList(),
@@ -209,7 +207,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                           child: Text(index.toString()),
                                         ),
                                         title: Text(
-                                            incidence.idEstadoIncid.toString()),
+                                            incidence.instEduc),
                                         subtitle: Text(
                                           incidence.descripcion,
                                           maxLines: 2,
@@ -227,7 +225,7 @@ class IncidenciasPage extends GetView<IncidenciasLogic> {
                                                 value: 'detail'),
                                           ],
                                           onSelected: (value) => controller
-                                              .popupSelect(incidence.id, value),
+                                              .popupSelect(incidence.idInci, value),
                                         ));
                                   },
                                   itemCount: incidencesModel.incides.length,

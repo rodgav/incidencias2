@@ -31,50 +31,43 @@ class AppPages {
         page: () => const RootPage(),
         binding: RootBinding(),
         participatesInRootNavigator: true,
-        preventDuplicates: true,
         children: [
           GetPage(
-              preventDuplicates: true,
               middlewares: [EnsureNotAuthMiddleware()],
               name: _Paths.login,
               page: () => const LoginPage(),
               binding: LoginBinding()),
           GetPage(
-              preventDuplicates: true,
               middlewares: [EnsureAuthMiddleware()],
               name: _Paths.home,
               page: () => const HomePage(),
               binding: HomeBinding(),
               children: [
                 GetPage(
-                    preventDuplicates: true,
                     name: _Paths.incidencias,
                     page: () => const IncidenciasPage(),
                     binding: IncidenciasBinding(),
                     children: [
                       GetPage(
-                          preventDuplicates: true,
                           name: _Paths.incidenciasDetails,
                           page: () => const IncidenciasDetailPage(),
                           binding: IncidenciasDetailBinding()),
                       GetPage(
-                          preventDuplicates: true,
                           name: _Paths.incidenciasPDF,
                           page: () => const IncidenciasPdfPage(),
                           binding: IncidenciasPdfBinding()),
                     ]),
                 GetPage(
-                    preventDuplicates: true,
                     name: _Paths.newIncidencia,
                     page: () => const NewIncidenciaPage(),
-                    binding: NewIncidenciaBinding()),
+                    binding: NewIncidenciaBinding(),
+                    children: [
+                      GetPage(
+                          name: _Paths.newFicha,
+                          page: () => const NewFichaPage(),
+                          binding: NewFichaBinding()),
+                    ]),
                 GetPage(
-                    preventDuplicates: true,
-                    name: _Paths.newFicha,
-                    page: () => const NewFichaPage(),
-                    binding: NewFichaBinding()),
-                GetPage(
-                    preventDuplicates: true,
                     name: _Paths.users,
                     page: () => const UsuariosPage(),
                     binding: UsuariosBinding())

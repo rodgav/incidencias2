@@ -56,12 +56,12 @@ class Ficha {
   factory Ficha.fromJson(Map<String, dynamic> json) => Ficha(
     idIncid: json["id_incid"],
     idTipoIncid: json["id_tipo_incid"],
-    marca: json["marca"],
-    modelo: json["modelo"],
-    serie: json["serie"],
-    estado: json["estado"],
-    ubicacion: json["ubicacion"],
-    observaciones: json["observaciones"],
+    marca: json["marca"].toString(),
+    modelo: json["modelo"].toString(),
+    serie: json["serie"].toString(),
+    estado: json["estado"].toString(),
+    ubicacion: json["ubicacion"].toString(),
+    observaciones: json["observaciones"].toString(),
   );
 
   Map<String, dynamic> toJson() => {

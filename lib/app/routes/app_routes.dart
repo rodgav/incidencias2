@@ -11,7 +11,7 @@ abstract class Routes {
 
   static const incidencias = home + _Paths.incidencias;
   static const newIncidencia = home + _Paths.newIncidencia;
-  static const newFicha = home + _Paths.newFicha;
+  static String newFicha(String idIncide) => '$newIncidencia/$idIncide';
 
   static String incidenciasDetails(String idIncide) => '$incidencias/$idIncide';
   static String incidenciasPDF(String idIncide) => '$incidencias/pdf/$idIncide';
@@ -27,7 +27,7 @@ abstract class _Paths {
   static const home = '/home';
   static const incidencias = '/incidencias';
   static const newIncidencia = '/newIncidencia';
-  static const newFicha = '/newFicha';
+  static const newFicha = '/:idIncide';
   static const incidenciasDetails = '/:idIncide';
   static const incidenciasPDF = '/pdf/:idIncide';
   static const users = '/users';
