@@ -2,7 +2,6 @@
 //
 //     final fichasModel = fichasModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 FichasModel fichasModelFromJson(String str) => FichasModel.fromJson(json.decode(str));

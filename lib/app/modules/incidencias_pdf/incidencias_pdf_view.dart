@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:incidencias2/app/data/models/fichas_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -13,7 +12,6 @@ class IncidenciasPdfPage extends GetView<IncidenciasPdfLogic> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final web = size.width > 800;
     return GetBuilder<IncidenciasPdfLogic>(
         id: 'incidencia',
         builder: (_) {

@@ -22,11 +22,6 @@ class IncidenciasLogic extends GetxController {
     super.onReady();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void _getTypeInci() async {
     _stateInciModel = await _dataRepository.stateInci();
     if (stateInciModel != null) {
