@@ -23,13 +23,13 @@ class DbRepository {
 
   Future<IncidencesModel?> getIncidences({required Map<String, String> map}) => _dbProvider.getIncidences(map:map);
 
-  Future<IncidencesModel?> getIncidId({required int idIncid}) =>
+  Future<IncidencesModel?> getIncidId({required String idIncid}) =>
       _dbProvider.getIncidId(idIncid: idIncid);
 
   Future<ResponseModel?> deleteInci({required Map<String, String> map}) =>
       _dbProvider.delete(map: map);
 
-  Future<FichasModel?> getFichas({required int idIncid}) =>
+  Future<FichasModel?> getFichas({required String idIncid}) =>
       _dbProvider.getFichas(idIncid: idIncid);
 
   Future<UsersModel?> getUsers({required Map<String, String> map}) =>

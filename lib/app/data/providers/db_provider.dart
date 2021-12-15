@@ -61,7 +61,7 @@ class DbProvider {
     }
   }
 
-  Future<IncidencesModel?> getIncidId({required int idIncid}) async {
+  Future<IncidencesModel?> getIncidId({required String idIncid}) async {
     try {
       final result = await _dio
           .get('', queryParameters: {'accion': 'incide', 'idIncid': idIncid});
@@ -71,7 +71,7 @@ class DbProvider {
     }
   }
 
-  Future<FichasModel?> getFichas({required int idIncid}) async {
+  Future<FichasModel?> getFichas({required String idIncid}) async {
     try {
       final result = await _dio
           .get('', queryParameters: {'accion': 'fichas', 'idIncid': idIncid});
