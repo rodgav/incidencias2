@@ -1,16 +1,15 @@
 # incidencias2
 
-A new Flutter project.
+Example use getX
+[Api](https://github.com/rodgav/api_incidencias2)
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![login](screenshots/1.jpg "login")
+![incidencias](screenshots/2.jpg "incidencias")
+![incidente](screenshots/3.jpg "incidente")
+![nuevaIncidencia1](screenshots/4.jpg "nuevaIncidencia1")
+![nuevaIncidencia2](screenshots/5.jpg "nuevaIncidencia2")
+![nuevoUsuario](screenshots/6.jpg "nuevoUsuario")
+![cambiarContra](screenshots/7.jpg "cambiarContra")
+![nuevaFicha](screenshots/8.jpg "nuevaFicha")
