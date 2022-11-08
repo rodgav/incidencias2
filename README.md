@@ -1,7 +1,7 @@
 # incidencias2
 
 Example use getX
-[Api](https://github.com/rodgav/api_incidencias2)
+[Api-PHP-MySql](https://github.com/rodgav/api_incidencias2)
 
 ## Screenshots
 
